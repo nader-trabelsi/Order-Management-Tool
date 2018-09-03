@@ -1,0 +1,86 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsf="http://xmlns.jcp.org/jsf/html"
+	xmlns:jc="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<jsf:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link href="#{resource['img/commande.ico']}" rel="shortcut icon"
+		type="image/x-icon" />
+	<title>Liste des commandes</title>
+	<jsf:outputStylesheet library="css" name="theme.css">
+	</jsf:outputStylesheet>
+	<!--<style>
+.ui-datatable .ui-datatable-header {
+	border: none;
+	background-color: #003366 !important;
+	font-weight: bold;
+	color: white;
+	border-radius: 2px;
+}
+
+th {
+	color: white !important;
+	background-color: #003366 !important;
+}
+
+tr {
+	color: #003366 !important;
+}
+</style>-->
+	<script>
+	function confirmer(){
+		return confirm("Etes vous sur de vouloir supprimer cette commande ?")
+		}
+	</script>
+</jsf:head>
+<jsf:body
+	style="background-size: cover;
+    background-repeat: no-repeat; background-image: url(#{resource['img/arr_plan_byNader.jpg']}); ">
+	<center>
+		<br /> <span
+			style="font: bold 45px 'Segoe UI'; color: #333538; margin: 0.2em 0.4em; letter-spacing: 1px;">
+			La liste des commandes </span> <br /> <br /> <br />
+		<jsf:form>
+			<p:dataTable value="#{commandeBean.listeComm}" var="cm"
+				style="width: 70%;
+	text-align: center;">
+
+				<p:column headerText="ID Commande">
+					<jsf:outputText value="#{cm.id_comm}">
+					</jsf:outputText>
+				</p:column>
+
+				<p:column headerText="Date">
+					<jsf:outputText value="#{cm.date_comm}">
+					</jsf:outputText>
+				</p:column>
+
+				<p:column headerText="Quantité commandée">
+					<jsf:outputText value="#{cm.qte_comm}">
+					</jsf:outputText>
+				</p:column>
+
+				<p:column headerText="Produit">
+					<jsf:outputText value="#{cm.produit.libelle}">
+					</jsf:outputText>
+				</p:column>
+
+				<p:column headerText="Client">
+					<jsf:outputText value="#{cm.client.prenom} #{cm.client.nom}">
+					</jsf:outputText>
+				</p:column>
+
+				<p:column headerText="Action">
+					<p:commandButton value="Supprimer" onclick="return confirmer();"
+						actionListener="#{commandeBean.supprimer}" ajax="true"
+						update="@form" icon="ui-icon-trash">
+						<jc:param name="idCom" value="#{cm.id_comm}" />
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+		</jsf:form>
+	</center>
+</jsf:body>
+</html>

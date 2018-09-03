@@ -1,0 +1,136 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsf="http://xmlns.jcp.org/jsf/html"
+	xmlns:jc="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<jsf:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link href="#{resource['img/commande.ico']}" rel="shortcut icon"
+		type="image/x-icon" />
+	<title>Ajout d'une commande</title>
+	<jsf:outputStylesheet library="css" name="theme.css">
+	</jsf:outputStylesheet>
+</jsf:head>
+<jsf:body
+	style="background-size: cover;
+    background-repeat: no-repeat; background-image: url(#{resource['img/arr_plan_byNader.jpg']});">
+	<center>
+		<br /> <span
+			style="font: bold 45px 'Segoe UI'; color: #333538; margin: 0.2em 0.4em; letter-spacing: 1px;">
+			Ajout d'une commande </span> <br /> <br />
+
+		<p:separator style="width:40%;" />
+		<br />
+
+		<jsf:form>
+			<p:panelGrid styleClass="HeaderGrid">
+				<jsf:outputText value="#{commandeBean.msgSucces}"
+					style="color:red; font-weight:bold; font-size:30px;">
+				</jsf:outputText>
+				<jc:facet name="header">
+					<p:row>
+						<p:column style="font-weight: bold;">Détails du Client :</p:column>
+						<p:column></p:column>
+					</p:row>
+				</jc:facet>
+				<p:row>
+
+					<p:column>
+						<jsf:outputLabel value="Numéro de CIN :" for="numcin" />
+					</p:column>
+					<p:column>
+						<p:inputNumber decimalPlaces="0" size="27"
+							value="#{commandeBean.id_client}" id="numcin" required="true"
+							requiredMessage="Le numéro de CIN est obligatoire!">
+
+						</p:inputNumber>
+						<jsf:message style=" color:red; padding:5px; width:50%;"
+							for="numcin"></jsf:message>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<jsf:outputLabel value="Nom : " for="nom" />
+					</p:column>
+					<p:column>
+						<p:inputTextarea cols="30" rows="1" value="#{commandeBean.nomC}"
+							id="nom" required="true"
+							requiredMessage="Le nom est obligatoire!" />
+						<jsf:message style=" color:red; padding:5px; width:50%;" for="nom"></jsf:message>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<jsf:outputLabel value="Prénom : " for="prenom" />
+					</p:column>
+					<p:column>
+						<p:inputTextarea cols="30" rows="1"
+							value="#{commandeBean.prenomC}" id="prenom" required="true"
+							requiredMessage="Le prénom est obligatoire!" />
+						<jsf:message style=" color:red; padding:5px; width:50%;"
+							for="prenom"></jsf:message>
+					</p:column>
+				</p:row>
+
+			</p:panelGrid>
+			<br />
+			<p:panelGrid styleClass="HeaderGrid">
+
+				<jc:facet name="header">
+					<p:row>
+						<p:column style="font-weight: bold;">Détails de la Commande :</p:column>
+						<p:column style="font-weight: bold;">
+						</p:column>
+					</p:row>
+				</jc:facet>
+
+				<p:row>
+					<p:column>
+						<jsf:outputLabel value="Date commande : " for="date_comm" />
+					</p:column>
+					<p:column>
+						<p:calendar id="date_comm" value="#{commandeBean.date_comm}"
+							pattern="dd/MM/yyyy" required="p:rowue"
+							requiredMessage="La date du commande est obligatoire!" maxdate="#{commandeBean.today}"/>
+						<jsf:message style=" color:red; padding:5px; width:50%;"
+							for="date_comm" />
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column>
+						<jsf:outputLabel value="Quantité commandée : " for="qt" />
+					</p:column>
+					<p:column>
+						<p:spinner min="1" size="20" value="#{commandeBean.qte_comm}"
+							id="qt" required="true"
+							requiredMessage="La quantité commandée est obligatoire!" />
+						<jsf:message style=" color:red; padding:5px; width:50%;" for="qt">
+						</jsf:message>
+					</p:column>
+				</p:row>
+
+
+				<p:row>
+					<p:column>
+						<jsf:outputLabel value="Produit : " for="refp"></jsf:outputLabel>
+					</p:column>
+					<p:column>
+						<p:selectOneMenu value="#{commandeBean.refprod}" id="refp">
+							<jc:selectItems value="#{commandeBean.listeRefProd}" />
+						</p:selectOneMenu>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+			<br />
+			<br />
+			<p:panelGrid>
+				<jsf:commandLink actionListener="#{commandeBean.ajouterCommande}">
+					<jsf:graphicImage library="img" name="ajout.ico">
+					</jsf:graphicImage>
+				</jsf:commandLink>
+			</p:panelGrid>
+		</jsf:form>
+	</center>
+</jsf:body>
+</html>
